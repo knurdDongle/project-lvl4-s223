@@ -1,0 +1,73 @@
+
+.fade.in {
+  opacity: 1;
+}
+
+.sidebar {
+  padding: 20px 10px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.sidebar a {
+  color: #ccbdbd;
+}
+
+.sidebar .act {
+  color: white;
+}
+
+.sidebar ul {
+  padding: 10px 10px;
+  list-style: none;
+  font-size: 18px;
+}
+
+.sidebar ul li {
+  padding-bottom: 5px;
+}
+
+.sidebar h4 {
+  color: white;
+  padding: 20px 10px;
+  border-bottom: 2px solid #161719;
+}
+
+.navbar {
+  z-index: 1030;
+  background-color: white;
+  box-shadow: 0 0px 5px #353A3F;
+}
+
+.input-field {
+  background-color: #efefef;
+  height: 80px;
+}
+
+.input-field input {
+  height: 50px;
+  border: 2px solid #808387;
+  border-radius: 6px;
+  width: 100%;
+  outline: none;
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.input-field input:active {
+  border: 2px solid black;
+}
+
+.input-field input:focus {
+  border: 2px solid black;
+}
+
+.display {
+  padding-bottom: 70px;
+}
