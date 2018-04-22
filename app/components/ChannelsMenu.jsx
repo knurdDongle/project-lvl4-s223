@@ -17,7 +17,7 @@ export default class ChannelsMenu extends React.Component {
         return (
           <li key={channel.id}>
             <a href="" className={channelClassNames}>
-            &num; {channel.name}
+            {`${String.fromCharCode(35)} ${channel.name}`}
             </a>
           </li>
         );
