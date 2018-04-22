@@ -1,3 +1,4 @@
 import getApp from '..';
 
-getApp().listen(4000);
+const port = process.env.PORT || 4000;
+getApp().listen(port);
