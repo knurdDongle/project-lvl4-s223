@@ -1,9 +1,13 @@
 {
-  "name": "hexlet-project-4-back",
+  "name": "frontend_l4_chat_project",
   "version": "0.0.1",
   "description": "",
+  "main": "dist/index.js",
+  "bin": {
+    "hexlet": "dist/bin/hexlet.js"
+  },
   "engines": {
-    "node": "9.3"
+    "node": "9.4"
   },
   "scripts": {
     "nodemon": "nodemon",
@@ -11,8 +15,8 @@
     "babel-node": "babel-node",
     "flow": "flow",
     "flow-typed": "flow-typed",
-    "start": "babel-node ./server/bin/slack.js",
-    "eslint": "eslint .",
+    "start": "babel-node ./src/bin/slack.js",
+    "eslint": "eslint",
     "webpack": "webpack",
     "build-server": "babel server --out-dir dist --source-maps inline",
     "build-app": "npm run webpack -- -p --env production",
@@ -35,14 +39,16 @@
     "@babel/preset-react": "*",
     "@babel/preset-stage-0": "*",
     "axios": "*",
-    "babel-loader": "8.0.0-beta.0",
+    "babel-loader": "^8.0.0-beta.2",
     "bootstrap": "^4.0.0",
     "classnames": "*",
     "css-loader": "*",
     "debug": "*",
     "dotenv": "^4.0.0",
+    "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-react": "^7.7.0",
     "faker": "*",
-    "jquery": "^3.3.1",
+    "jquery": "^3.1.1",
     "js-cookie": "*",
     "koa": "*",
     "koa-bodyparser": "^4.1.0",
@@ -51,10 +57,8 @@
     "koa-pug": "^3.0.0-2",
     "koa-router": "next",
     "koa-static": "^3.0.0",
-    "koa-webpack": "^0.3.1",
+    "koa-webpack": "^3.0.2",
     "lodash": "*",
-    "node-sass": "^4.8.3",
-    "popper.js": "^1.12.9",
     "prop-types": "^15.6.1",
     "react": "*",
     "react-bootstrap": "*",
@@ -65,26 +69,22 @@
     "redux-bootstrap": "*",
     "redux-form": "*",
     "redux-thunk": "*",
-    "sass": "^1.2.1",
-    "sass-loader": "^7.0.1",
+    "reselect": "^3.0.1",
     "socket.io": "*",
+    "socket.io-client": "^2.1.0",
     "style-loader": "*",
-    "webpack": "*"
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
   },
   "devDependencies": {
     "babel-eslint": "*",
     "eslint": "*",
-    "eslint-config-airbnb": "*",
-    "eslint-config-react": "^1.1.7",
+    "eslint-config-airbnb-base": "*",
     "eslint-plugin-flowtype": "*",
     "eslint-plugin-import": "*",
-    "eslint-plugin-jest": "^21.15.1",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.6.1",
     "flow-bin": "^0.63",
     "flow-typed": "*",
     "jest": "^22",
-    "nodemon": "*",
-    "webpack-cli": "^2.0.14"
+    "nodemon": "^1.17.3"
   }
 }

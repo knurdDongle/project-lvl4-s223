@@ -11,7 +11,20 @@ export default (router, io) => {
       { id: generalChannelId, name: 'general', removable: false },
       { id: randomChannelId, name: 'random', removable: false },
     ],
-    messages: [],
+    messages: [
+      {
+        channel: 1, message: 'first message', author: 'Yarik', time: '05:45',
+      },
+      {
+        channel: 1, message: 'second message', author: 'Yarik', time: '05:45',
+      },
+      {
+        channel: 1, message: 'third message', author: 'Yarik', time: '05:45',
+      },
+      {
+        channel: 1, message: 'fourth message', author: 'Yarik', time: '05:45',
+      },
+    ],
     currentChannelId: generalChannelId,
   };
 
@@ -82,7 +95,9 @@ export default (router, io) => {
       ctx.body = resources;
     })
     .post('/channels/:channelId/messages', (ctx) => {
+      console.log('helllllo from server');
       const { data: { attributes } } = ctx.request.body;
+      console.log(ctx.request.body);
       const message = {
         ...attributes,
         channelId: Number(ctx.params.channelId),

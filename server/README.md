@@ -1,1 +1,0 @@
-# Hexlet Frontend Project Slack

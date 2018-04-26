@@ -1,9 +1,13 @@
 import { connect } from 'react-redux';
-import Component from '../components/Display.jsx';
+import Component from '../components/InputField.jsx';
 import * as actionCreators from '../actions';
 
 const mapStateToProps = (state) => {
-  const props = { messages: state.messages };
+  const props = {
+    username: state.user.name,
+    channelId: state.currentChannelId,
+    messageCreatingState: state.messageCreatingState,
+  };
   return props;
 };
 
@@ -13,4 +17,3 @@ const Container = connect(
 )(Component);
 
 export default Container;
-
