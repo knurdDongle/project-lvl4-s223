@@ -5,7 +5,7 @@
 import path from 'path';
 import Koa from 'koa';
 import Pug from 'koa-pug';
-import socket from 'socket.io';
+import socketIO from 'socket.io';
 import http from 'http';
 import Router from 'koa-router';
 import koaLogger from 'koa-logger';
@@ -26,7 +26,7 @@ export default () => {
   app.use(bodyParser());
   // app.use(serve(path.join(__dirname, '..', 'public')));
   app.use(middleware({
-    config: webpackConfig(),
+    config: webpackConfig,
   }));
 
   const router = new Router();
@@ -48,7 +48,7 @@ export default () => {
   pug.use(app);
 
   const server = http.createServer(app.callback());
-  const io = socket(server);
+  const io = socketIO(server);
 
   addRoutes(router, io);
   app.use(router.allowedMethods());
