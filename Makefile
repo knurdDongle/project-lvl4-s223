@@ -9,7 +9,7 @@ install-deps:
 build:
 	rm -rf dist
 	npm run build
-	npm run webpack -- -p --env production && babel frontend --out-dir dist --source-maps inline
+	npm run webpack -- -p --mode production && babel frontend --out-dir dist --source-maps inline
 
 test:
 	npm test

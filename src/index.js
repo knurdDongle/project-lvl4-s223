@@ -4,6 +4,7 @@ import cookies from 'js-cookie';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import gon from 'gon';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import io from 'socket.io-client';
@@ -22,10 +23,12 @@ if (!cookies.get('slackProject')) {
 }
 const user = cookies.getJSON('slackProject');
 
+console.log(gon);
+
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
   reducers,
-  { ...window.gon, user },
+  { ...gon, user },
   compose(applyMiddleware(thunk)),
 );
 
