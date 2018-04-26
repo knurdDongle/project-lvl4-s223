@@ -24,7 +24,6 @@ export const addMessageToStorage = ({ message, author, channel }) => async (disp
     await axios.post(routes.messagesUrl(channel), { data: { attributes } });
     dispatch(addMessageSuccess());
   } catch (e) {
-    console.log(e);
     dispatch(addMessageFailure());
   }
 };
