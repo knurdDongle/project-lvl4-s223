@@ -23,8 +23,6 @@ if (!cookies.get('slackProject')) {
 }
 const user = cookies.getJSON('slackProject');
 
-console.log(gon);
-
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
   reducers,
