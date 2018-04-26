@@ -31,7 +31,7 @@ const store = createStore(
 
 /* eslint-enable */
 
-const socket = io();
+const socket = io(window.location.hostname);
 socket.on('newMessage', (message) => {
   const { data: { attributes } } = message;
   store.dispatch(actions.addNewMessage(attributes));
