@@ -26,7 +26,7 @@ export default () => {
   app.use(bodyParser());
   // app.use(serve(path.join(__dirname, '..', 'public')));
   app.use(middleware({
-    config: webpackConfig,
+    config: webpackConfig(),
   }));
 
   const router = new Router();
