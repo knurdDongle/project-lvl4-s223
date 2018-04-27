@@ -10,8 +10,8 @@ const channels = handleActions({
 }, {});
 
 const currentChannelId = handleActions({
-  [actions.setActiveChannel](state, { payload: { channelId } }) {
-    return { ...state, currentChannelId: channelId };
+  [actions.setActiveChannel](state, { payload: channelId }) {
+    return channelId;
   },
 }, {});
 

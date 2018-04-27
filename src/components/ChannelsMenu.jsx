@@ -8,6 +8,11 @@ export default class ChannelsMenu extends React.Component {
     return <h3 className="text-white pt-4 pb-4 border-bottom border-secondary">{name}</h3>;
   }
 
+  changeActiveChannel = id => (e) => {
+    e.preventDefault();
+    this.props.setActiveChannel(id);
+  }
+
   renderChannels = () => {
     const { channels, currentChannel } = this.props;
     return channels.length < 1 ? null :
@@ -19,7 +24,7 @@ export default class ChannelsMenu extends React.Component {
         });
         return (
           <li key={channel.id} className="pl-3 mb-2">
-            <a href="" className={`${channelClassNames} p-1 text-dark`}>
+            <a href="" className={`${channelClassNames} p-1 text-dark`} onClick={this.changeActiveChannel(channel.id)}>
             {`${String.fromCharCode(35)} ${channel.name}`}
             </a>
           </li>
@@ -40,4 +45,5 @@ ChannelsMenu.propTypes = {
   user: PropTypes.object,
   channels: PropTypes.array,
   currentChannel: PropTypes.number,
+  setActiveChannel: PropTypes.func,
 };
