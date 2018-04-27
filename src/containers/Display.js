@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import Component from '../components/Display.jsx';
 import * as actionCreators from '../actions';
+import messagesSelector from '../selectors';
 
 const mapStateToProps = (state) => {
   const props = {
-    messages: state.messages,
-    currentChannelId: state.currentChannelId,
+    messages: messagesSelector(state),
   };
   return props;
 };

@@ -9,13 +9,12 @@ export default class Display extends React.Component {
     window.scrollTo(0, document.body.scrollHeight);
   }
   renderMessages = () => {
-    const { messages, currentChannelId } = this.props;
+    const { messages } = this.props;
     if (messages.length < 1) {
       return null;
     }
-    const relevantMessages = messages.filter(msg => msg.channel === currentChannelId);
     return (<ul className="list-unstyled"> {
-      relevantMessages.map((msg, ind) => (
+      messages.map((msg, ind) => (
         <li className="mb-3 border-bottom border-light" key={ind}>
           <h5 className="d-inline pr-2 pb-1">{msg.author}</h5>
           <p className="time d-inline small text-muted">{msg.time}</p>

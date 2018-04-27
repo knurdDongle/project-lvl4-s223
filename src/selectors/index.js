@@ -1,8 +1,14 @@
-// import { createSelector } from 'reselect';
+import { createSelector } from 'reselect';
 
-// const getMessages = state => state;
+const getMessages = state => state.messages;
 
-// const messagesSelector = createSelector(getMessages);
+const getActiveChannel = state => state.currentChannelId;
 
-// export default messagesSelector;
+const messagesSelector = createSelector(
+  [getMessages, getActiveChannel],
+  (msgs, activeChannelId) =>
+    msgs.filter(msg => msg.channel === activeChannelId),
+);
+
+export default messagesSelector;
 
