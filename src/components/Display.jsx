@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { animateScroll as scroll } from 'react-scroll';
+import Radium from 'radium';
 
-export default class Display extends React.Component {
+const styles = {
+  msg: {
+    ':hover': {
+      backgroundColor: '#f9f9f9',
+    },
+  },
+};
+
+class Display extends React.Component {
   componentDidUpdate() {
     this.scrollToBottom();
   }
   scrollToBottom = () => {
-    window.scrollTo(0, document.body.scrollHeight);
+    scroll.scrollToBottom();
   }
   renderMessages = () => {
     const { messages } = this.props;
@@ -15,7 +25,7 @@ export default class Display extends React.Component {
     }
     return (<ul className="list-unstyled"> {
       messages.map((msg, ind) => (
-        <li className="mb-3 border-bottom border-light" key={ind}>
+        <li className="m-0 mb-3 border-bottom border-light" style={styles.msg} key={ind}>
           <h5 className="d-inline pr-2 pb-1">{msg.author}</h5>
           <p className="time d-inline small text-muted">{msg.time}</p>
           <p>{msg.message}</p>
@@ -35,3 +45,5 @@ Display.propTypes = {
   messages: PropTypes.array,
   currentChannelId: PropTypes.number,
 };
+
+export default Radium(Display);

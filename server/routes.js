@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Router from 'koa-router';
 
-const getNextId = () => Number(_.uniqueId());
+export const getNextId = () => Number(_.uniqueId());
 
 export default (router, io) => {
   const generalChannelId = getNextId();
@@ -48,7 +48,7 @@ export default (router, io) => {
       const data = {
         data: {
           type: 'channels',
-          id: channel.id,
+          id: getNextId(),
           attributes: channel,
         },
       };
@@ -58,6 +58,7 @@ export default (router, io) => {
     })
     .delete('/channels/:id', (ctx) => {
       const channelId = Number(ctx.params.id);
+      console.log(channelId);
       state.channels = state.channels.filter(c => c.id !== channelId);
       state.messages = state.messages.filter(m => m.channelId !== channelId);
       ctx.status = 204;
@@ -67,6 +68,7 @@ export default (router, io) => {
           id: channelId,
         },
       };
+      console.log(state);
       io.emit('removeChannel', data);
     })
     .patch('/channels/:id', (ctx) => {
@@ -95,9 +97,7 @@ export default (router, io) => {
       ctx.body = resources;
     })
     .post('/channels/:channelId/messages', (ctx) => {
-      console.log('helllllo from server');
       const { data: { attributes } } = ctx.request.body;
-      console.log(ctx.request.body);
       const message = {
         ...attributes,
         channelId: Number(ctx.params.channelId),

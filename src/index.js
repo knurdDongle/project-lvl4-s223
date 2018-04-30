@@ -37,6 +37,18 @@ socket.on('connect', () => console.log('connected'))
   .on('newMessage', (message) => {
     const { data: { attributes } } = message;
     store.dispatch(actions.addNewMessage(attributes));
+  })
+  .on('newChannel', (channel) => {
+    const { data: { attributes } } = channel;
+    store.dispatch(actions.addNewChannel(attributes));
+  })
+  .on('removeChannel', (channelToDelete) => {
+    const { data: { id } } = channelToDelete;
+    store.dispatch(actions.deleteChannel(id));
+  })
+  .on('renameChannel', (channel) => {
+    const { data: { attributes: { name, id } } } = channel;
+    store.dispatch(actions.renameChannel({ name, id }));
   });
 
 render(
