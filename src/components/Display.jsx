@@ -13,6 +13,7 @@ const styles = {
       marginLeft: '260px',
     },
     overflowY: 'scroll',
+    '-webkit-overflow-scrolling': 'touch',
     maxHeight: '95vh',
     width: '100%',
   },
@@ -31,7 +32,7 @@ class Display extends React.Component {
     if (messages.length < 1) {
       return null;
     }
-    return (<ul className="list-unstyled"> {
+    return (<ul className="list-unstyled pb-3"> {
       messages.map((msg, ind) => (
         <li className="m-0 mb-3 border-bottom border-light" key={ind}>
           <h5 className="d-inline pr-2 pb-1">{msg.author}</h5>
