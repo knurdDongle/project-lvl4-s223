@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import fontawesome from '@fortawesome/fontawesome';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faPlusCircle, faTrashAlt } from '@fortawesome/fontawesome-free-solid';
-import ChannelsModal from '../containers/ChannelsModal';
+import EditModal from '../containers/EditModal';
+import DeleteModal from '../containers/DeleteModal';
+import AddModal from '../containers/AddModal';
 
 fontawesome.library.add(faPlusCircle, faPencilAlt, faTrashAlt);
 
@@ -12,14 +14,31 @@ export default class ChannelsMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: {
+      sidebarOpen: false,
+      editModal: {
         modalIsOpen: false,
-        modalState: 'default',
         targetChannelId: null,
         targetChannelName: '',
         modalError: false,
       },
+      deleteModal: {
+        modalIsOpen: false,
+        targetChannelId: null,
+        targetChannelName: '',
+        modalError: false,
+      },
+      addModal: {
+        modalIsOpen: false,
+        modalError: false,
+      },
     };
+  }
+
+  onSetSidebar = (open) => {
+    this.setState({
+      ...this.state,
+      sidebarOpen: open,
+    });
   }
 
   handleModalError = () => {
@@ -31,49 +50,56 @@ export default class ChannelsMenu extends React.Component {
     });
   }
 
-  cleanModalState = () => {
+  cleanModalsState = () => {
     this.setState({
       ...this.state,
-      modal: {
+      editModal: {
         modalIsOpen: false,
-        modalState: 'default',
         targetChannelId: null,
         targetChannelName: '',
+        modalError: false,
+      },
+      deleteModal: {
+        modalIsOpen: false,
+        targetChannelId: null,
+        targetChannelName: '',
+        modalError: false,
+      },
+      addModal: {
+        modalIsOpen: false,
         modalError: false,
       },
     });
   }
 
-  deleteChannelModal = (id, name) => {
+
+  openEditChannelModal = (id, name) => {
     this.setState({
       ...this.state,
-      modal: {
-        modalState: 'delete',
-        modalIsOpen: !this.state.modalIsOpen,
+      editModal: {
+        modalIsOpen: true,
         targetChannelId: id,
         targetChannelName: name,
       },
     });
   }
 
-  addChannelModal = () => {
+  openDeleteChannelModal = (id, name) => {
     this.setState({
       ...this.state,
-      modal: {
-        modalState: 'add',
-        modalIsOpen: !this.state.modalIsOpen,
+      deleteModal: {
+        modalIsOpen: true,
+        targetChannelId: id,
+        targetChannelName: name,
       },
     });
   }
 
-  editChannelModal = (id, name) => {
+  openAddChannelModal = () => {
     this.setState({
       ...this.state,
-      modal: {
-        modalState: 'edit',
-        modalIsOpen: !this.state.modalIsOpen,
-        targetChannelId: id,
-        targetChannelName: name,
+      addModal: {
+        modalIsOpen: true,
       },
     });
   }
@@ -101,7 +127,7 @@ export default class ChannelsMenu extends React.Component {
           'bg-light': !active,
         });
         return (
-          <li key={channel.id} className="pl-3 pt-3">
+          <li key={channel.id} className="pl-4 pt-3">
             <a href="" className={`${channelClassNames} p-1 text-dark`} onClick={this.changeActiveChannel(channel.id)}>
               {`${String.fromCharCode(35)} ${channel.name}`}
             </a>
@@ -110,14 +136,14 @@ export default class ChannelsMenu extends React.Component {
               <button
                 type="button"
                 className="btn btn-dark ml-2 p-1 text-white-50"
-                onClick={() => this.editChannelModal(channel.id, channel.name)}
+                onClick={() => this.openEditChannelModal(channel.id, channel.name)}
               >
                 <FontAwesomeIcon icon="pencil-alt"/>
               </button>
               <button
                 type="button"
                 className="btn btn-dark ml-2 p-1 text-white-50"
-                onClick={() => this.deleteChannelModal(channel.id, channel.name)}
+                onClick={() => this.openDeleteChannelModal(channel.id, channel.name)}
               >
                 <FontAwesomeIcon icon="trash-alt"/>
               </button>
@@ -129,25 +155,36 @@ export default class ChannelsMenu extends React.Component {
   }
   render() {
     return (
-      <div className="fixed-top col-6 col-xs-6 col-sm-4 bg-dark col-md-3 col-xl-2 h-100">
+      <div className="bg-dark h-100 pl-2 pr-3" style={ { width: '270px' } }>
       { this.renderUserName() }
         <div className="mt-3">
           <h5 className="text-white pl-2">
             Channels
-            <button type="button" className="btn btn-dark ml-2 text-warning" onClick={this.addChannelModal}>
+            <button type="button" className="btn btn-dark ml-2 text-warning" onClick={this.openAddChannelModal}>
               <FontAwesomeIcon icon="plus-circle"/>
             </button>
           </h5>
           { this.renderChannels() }
         </div>
-        <ChannelsModal
-          modal={this.state.modal.modalIsOpen}
-          modalState={this.state.modal.modalState}
-          targetChannelId={this.state.modal.targetChannelId}
-          targetChannelName={this.state.modal.targetChannelName}
-          modalError={this.state.modal.modalError}
-          handleModalError={this.handleModalError}
-          cleanModalState={this.cleanModalState} />
+        <EditModal
+          modal={this.state.editModal.modalIsOpen}
+          targetChannelId={this.state.editModal.targetChannelId}
+          targetChannelName={this.state.editModal.targetChannelName}
+          modalError={this.state.editModal.modalError}
+          cleanModalState={this.cleanModalsState}
+        />
+        <DeleteModal
+          modal={this.state.deleteModal.modalIsOpen}
+          targetChannelId={this.state.deleteModal.targetChannelId}
+          targetChannelName={this.state.deleteModal.targetChannelName}
+          modalError={this.state.deleteModal.modalError}
+          cleanModalState={this.cleanModalsState}
+        />
+        <AddModal
+          modal={this.state.addModal.modalIsOpen}
+          modalError={this.state.addModal.modalError}
+          cleanModalState={this.cleanModalsState}
+        />
       </div>
     );
   }

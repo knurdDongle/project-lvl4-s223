@@ -1,12 +1,10 @@
 import { connect } from 'react-redux';
-import Component from '../components/ChannelsModal.jsx';
+import Component from '../components/DeleteModal.jsx';
 import * as actionCreators from '../actions';
 
 const mapStateToProps = (state) => {
   const props = {
-    channelsAddState: state.channelsAddState,
-    channelsEditState: state.channelsEditState,
-    channelsDeletingState: state.channelsDeletingState,
+    channelsDeleteState: state.channelsDeleteState,
   };
   return props;
 };

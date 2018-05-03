@@ -14,7 +14,7 @@ export const addChannelRequest = createAction('CHANNEL_ADD_REQUEST');
 export const addChannelSuccess = createAction('CHANNEL_ADD_SUCCESS');
 export const addChannelFailure = createAction('CHANNEL_ADD_FAILURE');
 
-export const addChannelToStorage = ({ name }) => async (dispatch) => {
+export const addChannel = ({ name }) => async (dispatch) => {
   dispatch(addChannelRequest());
   try {
     const attributes = { name, removable: true };
@@ -31,7 +31,7 @@ export const deleteChannelRequest = createAction('CHANNEL_DELETE_REQUEST');
 export const deleteChannelSuccess = createAction('CHANNEL_DELETE_SUCCESS');
 export const deleteChannelFailure = createAction('CHANNEL_DELETE_FAILURE');
 
-export const deleteChannelFromStorage = id => async (dispatch) => {
+export const removeChannel = id => async (dispatch) => {
   dispatch(deleteChannelRequest());
   try {
     await axios.delete(routes.deleteOrEditChannelUrl(id));
@@ -47,7 +47,7 @@ export const editChannelRequest = createAction('CHANNEL_EDIT_REQUEST');
 export const editChannelSuccess = createAction('CHANNEL_EDIT_SUCCESS');
 export const editChannelFailure = createAction('CHANNEL_EDIT_FAILURE');
 
-export const editChannelInStorage = ({ id, name }) => async (dispatch) => {
+export const editChannel = ({ id, name }) => async (dispatch) => {
   dispatch(editChannelRequest());
   try {
     await axios.patch(routes.deleteOrEditChannelUrl(id), { data: { attributes: { name } } });
@@ -63,7 +63,7 @@ export const addMessageRequest = createAction('MESSAGE_ADD_REQUEST');
 export const addMessageSuccess = createAction('MESSAGE_ADD_SUCCESS');
 export const addMessageFailure = createAction('MESSAGE_ADD_FAILURE');
 
-export const addMessageToStorage = ({ message, author, channel }) => async (dispatch) => {
+export const addMessage = ({ message, author, channel }) => async (dispatch) => {
   dispatch(addMessageRequest());
   try {
     const date = new Date();

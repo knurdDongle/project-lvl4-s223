@@ -4,8 +4,21 @@ import PropTypes from 'prop-types';
 import fontawesome from '@fortawesome/fontawesome';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/fontawesome-free-solid';
+import Radium from 'radium';
 
 fontawesome.library.add(faPaperPlane);
+
+const styles = {
+  inpt: {
+    '@media screen and (min-width: 800px)': {
+      marginLeft: '280px',
+      color: 'red',
+    },
+    bottom: '10px',
+    marginLeft: '10px',
+    zIndex: '1',
+  },
+};
 
 class InputField extends React.Component {
   addMessage = (values) => {
@@ -13,15 +26,16 @@ class InputField extends React.Component {
       return;
     }
     this.props.reset();
-    this.props.addMessageToStorage({
+    this.props.addMessage({
       message: values.text, author: this.props.username, channel: this.props.channelId,
     });
   }
   render() {
     const disabled = this.props.messageCreatingState === 'requested';
     return (
-      <div className="input-field fixed-bottom offset-6 col-6 offset-xs-6 col-xs-6 offset-md-3 col-sm-8 offset-sm-4 col-md-9 offset-xl-2 col-xl-10"
-        style={{ bottom: '10px' }}>
+      <div className="input-field fixed-bottom pr-2"
+        style={styles.inpt}
+       >
         <form action="" onSubmit={this.props.handleSubmit(this.addMessage)}>
           <div className="input-group pt-3">
             <Field
@@ -46,7 +60,7 @@ InputField.propTypes = {
   reset: PropTypes.func,
   addTask: PropTypes.func,
   handleSubmit: PropTypes.func,
-  addMessageToStorage: PropTypes.func,
+  addMessage: PropTypes.func,
   username: PropTypes.string,
   channelId: PropTypes.number,
   messageCreatingState: PropTypes.string,
@@ -54,4 +68,4 @@ InputField.propTypes = {
 
 export default reduxForm({
   form: 'newMessage',
-})(InputField);
+})(Radium(InputField));

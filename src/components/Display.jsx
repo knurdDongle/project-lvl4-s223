@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { animateScroll as scroll } from 'react-scroll';
 import Radium from 'radium';
 
 const styles = {
@@ -9,6 +8,14 @@ const styles = {
       backgroundColor: '#f9f9f9',
     },
   },
+  resp: {
+    '@media screen and (min-width: 800px)': {
+      marginLeft: '260px',
+    },
+    overflowY: 'scroll',
+    maxHeight: '95vh',
+    width: '100%',
+  },
 };
 
 class Display extends React.Component {
@@ -16,7 +23,8 @@ class Display extends React.Component {
     this.scrollToBottom();
   }
   scrollToBottom = () => {
-    scroll.scrollToBottom();
+    const { elToScroll } = this;
+    elToScroll.scrollTop = elToScroll.scrollHeight - elToScroll.clientHeight;
   }
   renderMessages = () => {
     const { messages } = this.props;
@@ -25,7 +33,7 @@ class Display extends React.Component {
     }
     return (<ul className="list-unstyled"> {
       messages.map((msg, ind) => (
-        <li className="m-0 mb-3 border-bottom border-light" style={styles.msg} key={ind}>
+        <li className="m-0 mb-3 border-bottom border-light" key={ind}>
           <h5 className="d-inline pr-2 pb-1">{msg.author}</h5>
           <p className="time d-inline small text-muted">{msg.time}</p>
           <p>{msg.message}</p>
@@ -34,7 +42,7 @@ class Display extends React.Component {
   }
   render() {
     return (
-      <div className="col-6 offset-6 col-xs-6 offset-xs-6 offset-sm-4 col-sm-8 offset-md-3 col-md-9 offset-xl-2 col-xl-10 mt-3 pb-5">
+      <div className="col mt-2" ref={(el) => { this.elToScroll = el; } } style={styles.resp}>
         {this.renderMessages()}
       </div>
     );
