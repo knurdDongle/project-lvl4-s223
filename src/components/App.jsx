@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleRoot } from 'radium';
-import ChannelsMenu from '../containers/ChannelsMenu';
-import Display from '../containers/Display';
-import InputField from '../containers/InputField';
+import ChannelsMenu from '../components/ChannelsMenu.jsx';
+import Display from '../components/Display.jsx';
+import InputField from '../components/InputField.jsx';
 import Side from './Side.jsx';
 
 const App = () => (

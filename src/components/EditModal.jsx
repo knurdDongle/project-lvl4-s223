@@ -5,9 +5,19 @@ import fontawesome from '@fortawesome/fontawesome';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faCheck, faPlus } from '@fortawesome/fontawesome-free-solid';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions';
 
 fontawesome.library.add(faCheck, faPlus);
 
+const mapStateToProps = (state) => {
+  const props = {
+    channelsEditState: state.channelsEditState,
+  };
+  return props;
+};
+
+@connect(mapStateToProps, actionCreators)
 class EditModal extends React.Component {
   constructor(props) {
     super(props);

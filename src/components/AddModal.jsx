@@ -5,9 +5,19 @@ import fontawesome from '@fortawesome/fontawesome';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/fontawesome-free-solid';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions';
 
 fontawesome.library.add(faPlus);
 
+const mapStateToProps = (state) => {
+  const props = {
+    channelsAddState: state.channelsAddState,
+  };
+  return props;
+};
+
+@connect(mapStateToProps, actionCreators)
 class AddModal extends React.Component {
   addChannel = async (values) => {
     if (!values.text) {

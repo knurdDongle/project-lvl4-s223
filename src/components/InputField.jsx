@@ -5,8 +5,19 @@ import fontawesome from '@fortawesome/fontawesome';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/fontawesome-free-solid';
 import Radium from 'radium';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions';
 
 fontawesome.library.add(faPaperPlane);
+
+const mapStateToProps = (state) => {
+  const props = {
+    username: state.user.name,
+    channelId: state.currentChannelId,
+    messageCreatingState: state.messageCreatingState,
+  };
+  return props;
+};
 
 const styles = {
   inpt: {
@@ -66,6 +77,6 @@ InputField.propTypes = {
   messageCreatingState: PropTypes.string,
 };
 
-export default reduxForm({
+export default connect(mapStateToProps, actionCreators)(reduxForm({
   form: 'newMessage',
-})(Radium(InputField));
+})(Radium(InputField)));

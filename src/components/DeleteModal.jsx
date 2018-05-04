@@ -1,7 +1,17 @@
 import React from 'react';
 import { Button, Modal, ModalBody, ModalFooter, Alert } from 'reactstrap';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import * as actionCreators from '../actions';
 
+const mapStateToProps = (state) => {
+  const props = {
+    channelsDeleteState: state.channelsDeleteState,
+  };
+  return props;
+};
+
+@connect(mapStateToProps, actionCreators)
 export default class DeleteModal extends React.Component {
   deleteChannel = async () => {
     try {

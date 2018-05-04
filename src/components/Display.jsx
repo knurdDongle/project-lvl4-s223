@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
+import { connect } from 'react-redux';
+import messagesSelector from '../selectors';
+import * as actionCreators from '../actions';
 
 const styles = {
   msg: {
@@ -13,10 +16,16 @@ const styles = {
       marginLeft: '260px',
     },
     overflowY: 'scroll',
-    '-webkit-overflow-scrolling': 'touch',
     maxHeight: '95vh',
     width: '100%',
   },
+};
+
+const mapStateToProps = (state) => {
+  const props = {
+    messages: messagesSelector(state),
+  };
+  return props;
 };
 
 class Display extends React.Component {
@@ -55,4 +64,5 @@ Display.propTypes = {
   currentChannelId: PropTypes.number,
 };
 
-export default Radium(Display);
+export default connect(mapStateToProps, actionCreators)(Radium(Display));
+

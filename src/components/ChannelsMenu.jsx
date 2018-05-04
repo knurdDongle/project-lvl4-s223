@@ -4,12 +4,24 @@ import PropTypes from 'prop-types';
 import fontawesome from '@fortawesome/fontawesome';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faPlusCircle, faTrashAlt } from '@fortawesome/fontawesome-free-solid';
-import EditModal from '../containers/EditModal';
-import DeleteModal from '../containers/DeleteModal';
-import AddModal from '../containers/AddModal';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions';
+import EditModal from './EditModal.jsx';
+import DeleteModal from './DeleteModal.jsx';
+import AddModal from './AddModal.jsx';
 
 fontawesome.library.add(faPlusCircle, faPencilAlt, faTrashAlt);
 
+const mapStateToProps = (state) => {
+  const props = {
+    channels: state.channels,
+    currentChannel: state.currentChannelId,
+    user: state.user,
+  };
+  return props;
+};
+
+@connect(mapStateToProps, actionCreators)
 export default class ChannelsMenu extends React.Component {
   constructor(props) {
     super(props);

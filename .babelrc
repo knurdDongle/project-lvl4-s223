@@ -3,5 +3,6 @@
     "@babel/env",
     "@babel/stage-0",
     "@babel/react"
-  ]
+  ],
+  "plugins": ["transform-decorators-legacy"]
 }
