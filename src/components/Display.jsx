@@ -16,9 +16,8 @@ const styles = {
     '@media screen and (min-width: 800px)': {
       marginLeft: '260px',
     },
-    overflowY: 'scroll',
-    maxHeight: '95vh',
-    width: '100%',
+    width: '80%',
+    height: '95vh',
   },
 };
 
@@ -49,15 +48,15 @@ class Display extends React.Component {
           <p className="time d-inline small text-muted">{msg.time}</p>
           <p>{msg.message}</p>
         </li>))}
-      </ul>);
+        </ul>);
   }
   render() {
     return (
+      <Scrollbar damping={0.1} style={{width: '100%', 'overflow-x': 'hidden'}}>
       <div className="col mt-2" ref={(el) => { this.elToScroll = el; } } style={styles.resp}>
-      <Scrollbar damping={0.2}>
         {this.renderMessages()}
-        </Scrollbar>
       </div>
+      </Scrollbar>
     );
   }
 }
