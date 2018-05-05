@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { disableBodyScroll } from 'body-scroll-lock';
-import { animateScroll as scroll } from 'react-scroll'
+import { animateScroll as scroll } from 'react-scroll';
 import messagesSelector from '../selectors';
 import * as actionCreators from '../actions';
 
@@ -18,7 +18,7 @@ const styles = {
       marginLeft: '260px',
     },
     '@media screen and (max-width: 799px)': {
-      marginTop: '30px',
+      marginTop: '50px',
       paddingBottom: '40px',
       '-webkit-overflow-scrolling': 'touch',
     },
@@ -43,8 +43,6 @@ class Display extends React.Component {
     this.scrollToBottom();
   }
   scrollToBottom = () => {
-    // const { elToScroll } = this;
-    // elToScroll.scrollTop = elToScroll.scrollHeight - elToScroll.clientHeight;
     scroll.scrollToBottom({ containerId: 'display' });
   }
 

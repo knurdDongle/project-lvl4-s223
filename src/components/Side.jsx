@@ -27,7 +27,6 @@ class Side extends React.Component {
   }
 
   onSetSidebarOpen = (open) => {
-    console.log('open');
     this.setState({ sidebarOpen: open });
   }
 
