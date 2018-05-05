@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { connect } from 'react-redux';
+import Scrollbar from 'react-smooth-scrollbar';
 import messagesSelector from '../selectors';
 import * as actionCreators from '../actions';
 
@@ -52,9 +53,11 @@ class Display extends React.Component {
   }
   render() {
     return (
+      <Scrollbar>
       <div className="col mt-2" ref={(el) => { this.elToScroll = el; } } style={styles.resp}>
         {this.renderMessages()}
       </div>
+      </Scrollbar>
     );
   }
 }
