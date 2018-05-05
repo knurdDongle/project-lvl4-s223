@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { connect } from 'react-redux';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 import messagesSelector from '../selectors';
 import * as actionCreators from '../actions';
 
@@ -34,6 +35,9 @@ const mapStateToProps = (state) => {
 };
 
 class Display extends React.Component {
+  componentDidMount() {
+    this.targetElement = document.querySelector('#display');
+  }
   componentDidUpdate() {
     this.scrollToBottom();
   }
@@ -41,11 +45,13 @@ class Display extends React.Component {
     const { elToScroll } = this;
     elToScroll.scrollTop = elToScroll.scrollHeight - elToScroll.clientHeight;
   }
+
   renderMessages = () => {
     const { messages } = this.props;
     if (messages.length < 1) {
       return null;
     }
+    disableBodyScroll(this.targetElement);
     return (<ul className="list-unstyled pb-3"> {
       messages.map((msg, ind) => (
         <li className="m-0 mb-3 border-bottom border-light" key={ind}>
@@ -57,7 +63,7 @@ class Display extends React.Component {
   }
   render() {
     return (
-      <div className="col mt-2" ref={(el) => { this.elToScroll = el; } } style={styles.resp}>
+      <div className="col mt-2" id="display" ref={(el) => { this.elToScroll = el; } } style={styles.resp}>
         {this.renderMessages()}
       </div>
     );
