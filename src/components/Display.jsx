@@ -53,11 +53,11 @@ class Display extends React.Component {
   }
   render() {
     return (
-      <Scrollbar>
       <div className="col mt-2" ref={(el) => { this.elToScroll = el; } } style={styles.resp}>
+      <Scrollbar damping={0.2}>
         {this.renderMessages()}
+        </Scrollbar>
       </div>
-      </Scrollbar>
     );
   }
 }
