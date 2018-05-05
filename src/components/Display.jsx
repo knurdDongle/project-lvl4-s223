@@ -17,7 +17,7 @@ const styles = {
     },
     '@media screen and (max-width: 799px)': {
       marginTop: '60px',
-      paddingBottom: '40px',
+      paddingBottom: '100px',
     },
     overflowY: 'scroll',
     height: '95vh',
