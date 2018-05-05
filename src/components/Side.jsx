@@ -1,6 +1,12 @@
 import React from 'react';
 import Sidebar from 'react-sidebar';
 import PropTypes from 'prop-types';
+import MediaQuery from 'react-responsive';
+import fontawesome from '@fortawesome/fontawesome';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/fontawesome-free-solid';
+
+fontawesome.library.add(faBars);
 
 const mql = window.matchMedia('(min-width: 800px)');
 
@@ -40,11 +46,17 @@ class Side extends React.Component {
 
   render() {
     return (
-     <Sidebar sidebar={this.props.children}
+      <Sidebar sidebar={this.props.children}
         open={this.state.sidebarOpen}
         docked={this.state.sidebarDocked}
         onSetOpen={this.onSetSidebarOpen}
-      />
+      >
+        <MediaQuery query="(max-width: 800px)">
+          <div className="w-100 bg-dark" style={{height: '50px'}}>
+            <button onClick={this.onSetSidebarOpen} className="btn btn-dark float-right mt-2 mr-1"><FontAwesomeIcon icon="bars"/></button>
+          </div>
+        </MediaQuery>
+      </Sidebar>
     );
   }
 }

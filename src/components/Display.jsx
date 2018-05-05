@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
 import { connect } from 'react-redux';
-import Scrollbar from 'react-smooth-scrollbar';
 import messagesSelector from '../selectors';
 import * as actionCreators from '../actions';
 
@@ -15,6 +14,10 @@ const styles = {
   resp: {
     '@media screen and (min-width: 800px)': {
       marginLeft: '260px',
+    },
+    '@media screen and (max-width: 799px)': {
+      marginTop: '60px',
+      paddingBottom: '40px',
     },
     overflowY: 'scroll',
     height: '95vh',
