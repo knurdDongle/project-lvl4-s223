@@ -18,7 +18,7 @@ const styles = {
       marginLeft: '260px',
     },
     '@media screen and (max-width: 799px)': {
-      marginTop: '60px',
+      marginTop: '30px',
       paddingBottom: '40px',
       '-webkit-overflow-scrolling': 'touch',
     },

@@ -52,8 +52,8 @@ class Side extends React.Component {
         onSetOpen={this.onSetSidebarOpen}
       >
         <MediaQuery query="(max-width: 800px)">
-          <div className="w-100 bg-dark" style={ { height: '50px', position: 'sticky' } }>
-            <button onClick={this.onSetSidebarOpen} className="btn btn-dark float-right mt-2 mr-1"><FontAwesomeIcon icon="bars"/></button>
+          <div className="w-100 fixed-top" style={ { 'z-index': '0' } }>
+            <button onClick={this.onSetSidebarOpen} className="btn float-right mt-2 mr-1"><FontAwesomeIcon icon="bars"/></button>
           </div>
         </MediaQuery>
       </Sidebar>
