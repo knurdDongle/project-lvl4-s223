@@ -13,25 +13,19 @@ fontawesome.library.add(faPlus);
 const mapStateToProps = (state) => {
   const props = {
     channelsAddState: state.channelsAddState,
+    openedModal: state.currentOpenedModal.type,
+    error: state.currentOpenedModal.error,
   };
   return props;
 };
 
 @connect(mapStateToProps, actionCreators)
 class AddModal extends React.Component {
-  addChannel = async (values) => {
+  addChannel = (values) => {
     if (!values.text) {
       return;
     }
-    try {
-      await this.props.addChannel({
-        name: values.text,
-      });
-      this.props.reset();
-      this.props.cleanModalState();
-    } catch (e) {
-      this.props.handleModalError();
-    }
+    this.props.addChannel({ name: values.text }, this.props.reset);
   }
 
   renderError = () => (
@@ -42,11 +36,12 @@ class AddModal extends React.Component {
 
   render() {
     const disabled = this.props.channelsAddState === 'requested';
+    const opened = this.props.openedModal === 'addModal';
     return (
-        <Modal isOpen={this.props.modal} toggle={this.props.cleanModalState} autoFocus={false}>
-          <ModalHeader toggle={this.props.cleanModalState}>Add Channel</ModalHeader>
+        <Modal isOpen={opened} toggle={this.props.closeModal} autoFocus={false}>
+          <ModalHeader toggle={this.props.closeModal}>Add Channel</ModalHeader>
           <ModalBody>
-            {this.props.modalError && this.renderError()}
+            {this.props.error && this.renderError()}
             <form action="" onSubmit={this.props.handleSubmit(this.addChannel)}>
               <div className="input-group pt-3">
                 <Field
@@ -73,15 +68,14 @@ class AddModal extends React.Component {
 AddModal.propTypes = {
   addChannel: PropTypes.func,
   reset: PropTypes.func,
-  cleanModalState: PropTypes.func,
-  handleModalError: PropTypes.func,
   targetChannelId: PropTypes.number,
   channelsAddState: PropTypes.string,
-  modalError: PropTypes.bool,
+  error: PropTypes.bool,
   handleSubmit: PropTypes.func,
   modalState: PropTypes.string,
   targetChannelName: PropTypes.string,
-  modal: PropTypes.bool,
+  openedModal: PropTypes.string,
+  closeModal: PropTypes.func,
 };
 
 export default reduxForm({

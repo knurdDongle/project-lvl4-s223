@@ -13,6 +13,10 @@ fontawesome.library.add(faCheck, faPlus);
 const mapStateToProps = (state) => {
   const props = {
     channelsEditState: state.channelsEditState,
+    openedModal: state.currentOpenedModal.type,
+    targetChannelId: state.currentOpenedModal.targetChannelId,
+    targetChannelName: state.currentOpenedModal.targetChannelName,
+    error: state.currentOpenedModal.error,
   };
   return props;
 };
@@ -34,6 +38,9 @@ class EditModal extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    // if (this.inputEl) {
+    //   this.inputEl.setSelectionRange(0, 10);
+    // }
     if (prevProps.targetChannelId === this.props.targetChannelId) {
       return;
     }
@@ -47,19 +54,10 @@ class EditModal extends React.Component {
     if (!values.name) {
       return;
     }
-    try {
-      await this.props.editChannel({
-        id: this.props.targetChannelId,
-        name: values.name,
-      });
-      this.props.reset();
-      this.setState({
-        error: false,
-      });
-      this.props.cleanModalState();
-    } catch (e) {
-      this.props.handleModalError();
-    }
+    this.props.editChannel({
+      id: this.props.targetChannelId,
+      name: values.name,
+    }, this.props.reset);
   }
 
   renderError = () => (
@@ -70,14 +68,12 @@ class EditModal extends React.Component {
 
   render() {
     const disabled = this.props.channelsEditState === 'requested';
-    if (this.inputEl) {
-      this.inputEl.setSelectionRange(0, 10);
-    }
+    const opened = this.props.openedModal === 'editModal';
     return (
-        <Modal isOpen={this.props.modal} toggle={this.props.cleanModalState} autoFocus={false}>
-          <ModalHeader toggle={this.props.cleanModalState}>Edit channel name</ModalHeader>
+        <Modal isOpen={opened} toggle={this.props.closeModal} autoFocus={false}>
+          <ModalHeader toggle={this.props.closeModal}>Edit channel name</ModalHeader>
           <ModalBody>
-            {this.props.modalError && this.renderError()}
+            {this.props.error && this.renderError()}
             <form action="" onSubmit={this.props.handleSubmit(this.editChannel)}>
               <div className="input-group pt-3">
                 <Field
@@ -105,15 +101,14 @@ class EditModal extends React.Component {
 
 EditModal.propTypes = {
   reset: PropTypes.func,
-  cleanModalState: PropTypes.func,
-  handleModalError: PropTypes.func,
   editChannel: PropTypes.func,
   targetChannelId: PropTypes.number,
-  modalError: PropTypes.bool,
+  error: PropTypes.bool,
   handleSubmit: PropTypes.func,
   channelsEditState: PropTypes.string,
-  modal: PropTypes.bool,
+  openedModal: PropTypes.string,
   initialize: PropTypes.func,
+  closeModal: PropTypes.func,
 };
 
 export default reduxForm({

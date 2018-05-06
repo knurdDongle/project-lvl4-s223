@@ -23,96 +23,23 @@ const mapStateToProps = (state) => {
 
 @connect(mapStateToProps, actionCreators)
 export default class ChannelsMenu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sidebarOpen: false,
-      editModal: {
-        modalIsOpen: false,
-        targetChannelId: null,
-        targetChannelName: '',
-        modalError: false,
-      },
-      deleteModal: {
-        modalIsOpen: false,
-        targetChannelId: null,
-        targetChannelName: '',
-        modalError: false,
-      },
-      addModal: {
-        modalIsOpen: false,
-        modalError: false,
-      },
-    };
+  openAddModal = () => {
+    this.props.openModal({ type: 'addModal' });
   }
 
-  onSetSidebar = (open) => {
-    this.setState({
-      ...this.state,
-      sidebarOpen: open,
+  openDeleteModal = (targetChannelId, targetChannelName) => {
+    this.props.openModal({
+      type: 'deleteModal',
+      targetChannelId,
+      targetChannelName,
     });
   }
 
-  handleModalError = () => {
-    this.setState({
-      ...this.state,
-      modal: {
-        modalError: true,
-      },
-    });
-  }
-
-  cleanModalsState = () => {
-    this.setState({
-      ...this.state,
-      editModal: {
-        modalIsOpen: false,
-        targetChannelId: null,
-        targetChannelName: '',
-        modalError: false,
-      },
-      deleteModal: {
-        modalIsOpen: false,
-        targetChannelId: null,
-        targetChannelName: '',
-        modalError: false,
-      },
-      addModal: {
-        modalIsOpen: false,
-        modalError: false,
-      },
-    });
-  }
-
-
-  openEditChannelModal = (id, name) => {
-    this.setState({
-      ...this.state,
-      editModal: {
-        modalIsOpen: true,
-        targetChannelId: id,
-        targetChannelName: name,
-      },
-    });
-  }
-
-  openDeleteChannelModal = (id, name) => {
-    this.setState({
-      ...this.state,
-      deleteModal: {
-        modalIsOpen: true,
-        targetChannelId: id,
-        targetChannelName: name,
-      },
-    });
-  }
-
-  openAddChannelModal = () => {
-    this.setState({
-      ...this.state,
-      addModal: {
-        modalIsOpen: true,
-      },
+  openEditModal = (targetChannelId, targetChannelName) => {
+    this.props.openModal({
+      type: 'editModal',
+      targetChannelId,
+      targetChannelName,
     });
   }
 
@@ -148,14 +75,14 @@ export default class ChannelsMenu extends React.Component {
               <button
                 type="button"
                 className="btn btn-dark ml-2 p-1 text-white-50"
-                onClick={() => this.openEditChannelModal(channel.id, channel.name)}
+                onClick={() => this.openEditModal(channel.id, channel.name)}
               >
                 <FontAwesomeIcon icon="pencil-alt"/>
               </button>
               <button
                 type="button"
                 className="btn btn-dark ml-2 p-1 text-white-50"
-                onClick={() => this.openDeleteChannelModal(channel.id, channel.name)}
+                onClick={() => this.openDeleteModal(channel.id, channel.name)}
               >
                 <FontAwesomeIcon icon="trash-alt"/>
               </button>
@@ -172,31 +99,15 @@ export default class ChannelsMenu extends React.Component {
         <div className="mt-3">
           <h5 className="text-white pl-2">
             Channels
-            <button type="button" className="btn btn-dark ml-2 text-warning" onClick={this.openAddChannelModal}>
+            <button type="button" className="btn btn-dark ml-2 text-warning" onClick={this.openAddModal}>
               <FontAwesomeIcon icon="plus-circle"/>
             </button>
           </h5>
           { this.renderChannels() }
         </div>
-        <EditModal
-          modal={this.state.editModal.modalIsOpen}
-          targetChannelId={this.state.editModal.targetChannelId}
-          targetChannelName={this.state.editModal.targetChannelName}
-          modalError={this.state.editModal.modalError}
-          cleanModalState={this.cleanModalsState}
-        />
-        <DeleteModal
-          modal={this.state.deleteModal.modalIsOpen}
-          targetChannelId={this.state.deleteModal.targetChannelId}
-          targetChannelName={this.state.deleteModal.targetChannelName}
-          modalError={this.state.deleteModal.modalError}
-          cleanModalState={this.cleanModalsState}
-        />
-        <AddModal
-          modal={this.state.addModal.modalIsOpen}
-          modalError={this.state.addModal.modalError}
-          cleanModalState={this.cleanModalsState}
-        />
+        <EditModal/>
+        <DeleteModal/>
+        <AddModal/>
       </div>
     );
   }
@@ -207,4 +118,5 @@ ChannelsMenu.propTypes = {
   channels: PropTypes.array,
   currentChannel: PropTypes.number,
   setActiveChannel: PropTypes.func,
+  openModal: PropTypes.func,
 };

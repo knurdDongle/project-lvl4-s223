@@ -6,17 +6,17 @@ import InputField from '../components/InputField.jsx';
 import Side from './Side.jsx';
 
 const App = () => (
-    <StyleRoot>
+  <StyleRoot>
     <div className="container-fluid">
-        <div className="row mt-1">
-          <Side >
-            <ChannelsMenu />
-          </Side>
-          <Display />
-          <InputField />
-        </div>
+      <div className="row mt-1">
+        <Side >
+          <ChannelsMenu />
+        </Side>
+        <Display />
+        <InputField />
       </div>
-    </StyleRoot>
+    </div>
+  </StyleRoot>
 );
 
 export default App;

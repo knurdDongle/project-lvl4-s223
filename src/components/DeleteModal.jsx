@@ -7,19 +7,18 @@ import * as actionCreators from '../actions';
 const mapStateToProps = (state) => {
   const props = {
     channelsDeleteState: state.channelsDeleteState,
+    openedModal: state.currentOpenedModal.type,
+    targetChannelId: state.currentOpenedModal.targetChannelId,
+    targetChannelName: state.currentOpenedModal.targetChannelName,
+    error: state.currentOpenedModal.error,
   };
   return props;
 };
 
 @connect(mapStateToProps, actionCreators)
 export default class DeleteModal extends React.Component {
-  deleteChannel = async () => {
-    try {
-      await this.props.removeChannel(this.props.targetChannelId);
-      this.props.cleanModalState();
-    } catch (e) {
-      this.props.handleModalError();
-    }
+  deleteChannel = () => {
+    this.props.removeChannel(this.props.targetChannelId);
   }
 
   renderError = () => (
@@ -30,10 +29,11 @@ export default class DeleteModal extends React.Component {
 
   render() {
     const disabled = this.props.channelsDeleteState === 'requested';
+    const opened = this.props.openedModal === 'deleteModal';
     return (
-        <Modal isOpen={this.props.modal} toggle={this.props.cleanModalState}>
+        <Modal isOpen={opened} toggle={this.props.closeModal}>
           <ModalBody>
-            {this.props.modalError && this.renderError()}
+            {this.props.error && this.renderError()}
             <h4>Are you sure you want delete
               <span className="text-danger">
                 {` ${this.props.targetChannelName}`}
@@ -42,7 +42,7 @@ export default class DeleteModal extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button color="danger" disabled={disabled} onClick={() => this.deleteChannel()}>DELETE</Button>
-            <Button color="secondary" onClick={() => this.props.cleanModalState()}>CANCEL</Button>
+            <Button color="secondary" onClick={this.props.closeModal}>CANCEL</Button>
           </ModalFooter>
         </Modal>
     );
@@ -50,13 +50,12 @@ export default class DeleteModal extends React.Component {
 }
 
 DeleteModal.propTypes = {
-  cleanModalState: PropTypes.func,
-  handleModalError: PropTypes.func,
   removeChannel: PropTypes.func,
   targetChannelId: PropTypes.number,
-  modalError: PropTypes.bool,
+  error: PropTypes.bool,
   channelsDeleteState: PropTypes.string,
   modalState: PropTypes.string,
   targetChannelName: PropTypes.string,
-  modal: PropTypes.bool,
+  openedModal: PropTypes.string,
+  closeModal: PropTypes.func,
 };

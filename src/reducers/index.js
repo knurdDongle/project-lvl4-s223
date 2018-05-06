@@ -5,6 +5,29 @@ import * as actions from '../actions';
 
 const defaultChannel = 1;
 
+const currentOpenedModal = handleActions({
+  [actions.openModal](state, { payload: { type, targetChannelId, targetChannelName } }) {
+    return {
+      ...state,
+      type,
+      targetChannelId: targetChannelId || null,
+      targetChannelName: targetChannelName || null,
+    };
+  },
+  [actions.closeModal](state) {
+    return {
+      ...state, type: 'none', targetChannelId: null, targetChannelName: null, error: false,
+    };
+  },
+  [actions.handleModalError](state) {
+    return {
+      ...state, error: true,
+    };
+  },
+}, {
+  type: 'none', targetChannelId: null, targetChannelName: null, error: null,
+});
+
 const channels = handleActions({
   [actions.getChannels](state, { payload: { ch } }) {
     return { ...state, ch };
@@ -103,6 +126,7 @@ export default combineReducers({
   channelsDeletingState,
   channelsAddState,
   channelsEditState,
+  currentOpenedModal,
   form: formReducer,
 });
 
