@@ -38,9 +38,6 @@ class EditModal extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // if (this.inputEl) {
-    //   this.inputEl.setSelectionRange(0, 10);
-    // }
     if (prevProps.targetChannelId === this.props.targetChannelId) {
       return;
     }
